@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
+import { DB_NAME } from "../const.js";
 
 export const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URI)
-        console.log("✅ MongoDB Connected !!");
+        const conn = await mongoose.connect(`${process.env.MONGO_URI}/${DB_NAME}`)
+        console.log("✅ MongoDB Connected !!", conn.Connection.name);
     } catch (error) {
         console.log("❌ MongoDB Connection Failed : ", error.message);
         process.exit(1);  // It terminate the code and move out of the database
